@@ -178,7 +178,9 @@ export abstract class Cluster<T extends string> extends AttributesBase<T>
       );
     }
     const edge = new Edge(
-      targets.map((t) => (isEdgeTargetsLike(t)
+      targets.map((
+        t,
+      ) => (isEdgeTargetsLike(t)
         ? this.toEdgeTargets(t)
         : this.toEdgeTarget(t))
       ),
