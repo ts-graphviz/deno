@@ -1,0 +1,18 @@
+name: deno-ci
+
+on: [push, pull_request]
+
+jobs:
+  content_type:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: denolib/setup-deno@master
+        with:
+          deno-version: 1.0.0
+      - run: deno --version
+      - run: deno fmt --check
