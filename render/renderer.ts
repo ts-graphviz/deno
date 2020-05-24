@@ -43,10 +43,9 @@ export class Renderer {
     const comment = commentOutIfExist(edge.comment);
     const targets = joinWith(
       isGraph(this.root) ? " -- " : " -> ",
-      edge.targets.map((t) => (isEdgeTargetLike(t)
-        ? renderEdgeTarget(t)
-        : renderEdgeTargets(t))
-      ),
+      edge.targets.map((
+        t,
+      ) => (isEdgeTargetLike(t) ? renderEdgeTarget(t) : renderEdgeTargets(t))),
     );
     const attrs = edge.attributes.size > 0
       ? spaceLeftPad(renderAttributes(edge.attributes))
