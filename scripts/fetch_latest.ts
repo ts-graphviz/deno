@@ -9,9 +9,7 @@ const repositorySrcDir = "src";
 const outDir = ".";
 const denolizedFilePath = `${outDir}/.denolized`;
 
-const workDir = await Deno.makeTempDir({
-  prefix: "tsgraphviz",
-});
+const workDir = "./work";
 const rootDir = path.join(workDir, repositorySrcDir);
 
 async function readDenolizedFiles() {
@@ -56,6 +54,11 @@ try {
     }
     await writeDenolizedFiles(files);
   }
+  Deno.writeFile(
+    "./mod.ts",
+    encoder.encode('export * from  "./render_dot.ts";\n'),
+    { append: true },
+  );
 } finally {
   await Deno.remove(workDir, { recursive: true });
 }

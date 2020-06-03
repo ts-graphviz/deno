@@ -1,4 +1,5 @@
-import { digraph, attribute, toDot } from "https://deno.land/x/graphviz/mod.ts";
+import * as path from "https://deno.land/std/path/mod.ts";
+import { digraph, attribute, renderDot } from "../mod.ts";
 
 const G = digraph("G", (g) => {
   const a = g.node("aa");
@@ -17,12 +18,13 @@ const G = digraph("G", (g) => {
     });
 
     const Ac = A.node("Acc");
-    A.edge([Aa.port("a"), Ab, Ac, "E"], {
+    A.edge([Aa.port({ compass: "c" }), Ab, Ac, "E"], {
       [attribute.color]: "red",
     });
   });
 });
 
-const dot = toDot(G);
-
-console.log(dot);
+const __dirname = new URL(".", import.meta.url).pathname;
+await renderDot(G, path.resolve(__dirname, "./callback.svg"), {
+  format: "svg",
+});

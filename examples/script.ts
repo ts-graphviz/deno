@@ -1,4 +1,8 @@
-import { digraph, toDot } from "https://deno.land/x/graphviz/mod.ts";
+import * as path from "https://deno.land/std/path/mod.ts";
+import {
+  digraph,
+  renderDot,
+} from "../mod.ts";
 
 const g = digraph("G");
 
@@ -16,5 +20,7 @@ const node1 = g.createNode("node1");
 const node2 = g.createNode("node2");
 g.createEdge([node1, node2]);
 
-const dot = toDot(g);
-console.log(dot);
+const __dirname = new URL(".", import.meta.url).pathname;
+await renderDot(g, path.resolve(__dirname, "./script.svg"), {
+  format: "svg",
+});

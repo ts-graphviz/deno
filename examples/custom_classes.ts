@@ -1,11 +1,12 @@
+import * as path from "https://deno.land/std/path/mod.ts";
 import {
   Digraph,
   Node,
   Edge,
-  EdgeTarget,
   attribute,
-  toDot,
-} from "https://deno.land/x/graphviz/mod.ts";
+  EdgeTarget,
+  renderDot,
+} from "../mod.ts";
 
 class MyCustomDigraph extends Digraph {
   constructor() {
@@ -40,5 +41,7 @@ digraph.addNode(node1);
 digraph.addNode(node2);
 digraph.addEdge(edge);
 
-const dot = toDot(digraph);
-console.log(dot);
+const __dirname = new URL(".", import.meta.url).pathname;
+await renderDot(digraph, path.resolve(__dirname, "./custom_classes.svg"), {
+  format: "svg",
+});

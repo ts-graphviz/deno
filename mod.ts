@@ -8,3 +8,4 @@ export * from "./model/edges.ts";
 export * from "./model/nodes.ts";
 export * from "./usecase.ts";
 export * from "./render/to_dot.ts";
+export * from "./render_dot.ts";

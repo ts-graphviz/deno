@@ -1,11 +1,5 @@
-import {
-  Digraph,
-  Subgraph,
-  Node,
-  Edge,
-  attribute,
-  toDot,
-} from "https://deno.land/x/graphviz/mod.ts";
+import * as path from "https://deno.land/std/path/mod.ts";
+import { Digraph, Subgraph, Node, Edge, attribute, renderDot } from "../mod.ts";
 
 const G = new Digraph();
 const A = new Subgraph("A");
@@ -25,5 +19,7 @@ A.addNode(node1);
 A.addNode(node2);
 A.addEdge(edge);
 
-const dot = toDot(G);
-console.log(dot);
+const __dirname = new URL(".", import.meta.url).pathname;
+await renderDot(G, path.resolve(__dirname, "./classes.svg"), {
+  format: "svg",
+});
