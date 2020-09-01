@@ -1,8 +1,9 @@
 name: Publish Egg
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   publish-egg:
@@ -14,7 +15,6 @@ jobs:
           deno-version: 1.1.1
       - run: deno install -A -f --unstable -n eggs https://x.nest.land/eggs@0.1.4/mod.ts
       - run: |
-          cd eggs
           export PATH="/home/runner/.deno/bin:$PATH"
           eggs link --key ${{ secrets.NEST_API_KEY }}
           eggs publish
