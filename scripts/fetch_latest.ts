@@ -1,5 +1,5 @@
-import * as path from "https://deno.land/std/path/mod.ts";
-import { denolize } from "https://raw.githubusercontent.com/kamiazya/denolize/master/mod.ts";
+import * as path from "https://deno.land/std@0.67.0/path/mod.ts";
+import { denolize } from "https://raw.githubusercontent.com/kamiazya/denolize/v0.0.6/mod.ts";
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
