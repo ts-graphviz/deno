@@ -5,7 +5,7 @@ import { toDot } from "./render/to_dot.ts";
  * Run dot command and output result to the specified path.
  *
  * ```ts
- * import * as path from "https://deno.land/std/path/mod.ts";
+ * import * as path from "https://deno.land/std@0.67.0/path/mod.ts";
  * import { digraph, attribute, renderDot } from "https://deno.land/x/graphviz/mod.ts";
  * const G = digraph("G", (g) => {
  *   const a = g.node("aa");

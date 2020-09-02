@@ -169,14 +169,6 @@ export abstract class Cluster<T extends string> extends AttributesBase<T>
     targets: (EdgeTargetLike | EdgeTargetsLike)[],
     attributes?: EdgeAttributes,
   ): IEdge {
-    if (
-      targets.length < 2 &&
-      (isEdgeTargetLike(targets[0]) && isEdgeTargetLike(targets[1])) === false
-    ) {
-      throw Error(
-        "The element of Edge target is missing or not satisfied as Edge target.",
-      );
-    }
     const edge = new Edge(
       targets.map((
         t,
