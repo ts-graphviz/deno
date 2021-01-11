@@ -1,18 +1,18 @@
 import {
-  ICluster,
-  ISubgraph,
-  IEdge,
-  INode,
-  IRootCluster,
-  IAttributes,
   AttributesValue,
   EdgeTarget,
   EdgeTargets,
+  IAttributes,
+  ICluster,
+  IEdge,
+  INode,
+  IRootCluster,
+  ISubgraph,
 } from "../types.ts";
 import { Subgraph } from "../model/clusters.ts";
 import { Edge } from "../model/edges.ts";
-import { Node, NodeWithPort, ForwardRefNode } from "../model/nodes.ts";
-import { RootCluster, Graph, Digraph } from "../model/root_clusters.ts";
+import { ForwardRefNode, Node, NodeWithPort } from "../model/nodes.ts";
+import { Digraph, Graph, RootCluster } from "../model/root_clusters.ts";
 import { Attributes } from "../model/attributes_base.ts";
 export function escape(str: string): string {
   return str.replace(/\n/g, "\\n").replace(/"/g, '\\"');

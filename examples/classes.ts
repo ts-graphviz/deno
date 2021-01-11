@@ -1,5 +1,5 @@
 import * as path from "https://deno.land/std@0.67.0/path/mod.ts";
-import { Digraph, Subgraph, Node, Edge, attribute, renderDot } from "../mod.ts";
+import { attribute, Digraph, Edge, Node, renderDot, Subgraph } from "../mod.ts";
 
 const G = new Digraph();
 const A = new Subgraph("A");

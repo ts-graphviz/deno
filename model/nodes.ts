@@ -1,12 +1,12 @@
 import {
-  EdgeTargetLike,
   EdgeTarget,
-  INode,
-  IPort,
-  IForwardRefNode,
-  INodeWithPort,
-  NodeAttributes,
+  EdgeTargetLike,
   IAttributes,
+  IForwardRefNode,
+  INode,
+  INodeWithPort,
+  IPort,
+  NodeAttributes,
 } from "../types.ts";
 import { DotObject } from "./abstract.ts";
 import { attribute } from "../attribute.ts";

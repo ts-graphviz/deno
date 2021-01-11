@@ -1,10 +1,10 @@
 import { DotObject } from "./abstract.ts";
 import {
+  AttributesEntities,
   AttributesObject,
   AttributesValue,
-  IAttributesBase,
   IAttributes,
-  AttributesEntities,
+  IAttributesBase,
 } from "../types.ts";
 /**
  * @hidden
