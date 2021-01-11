@@ -1,10 +1,10 @@
 import {
   Dot,
-  INode,
-  ISubgraph,
   ICluster,
   IEdge,
+  INode,
   IRootCluster,
+  ISubgraph,
 } from "../types.ts";
 import { isEdgeTargetLike } from "../model/nodes.ts";
 import { renderEdgeTargets } from "./utils.ts";

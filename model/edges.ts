@@ -1,8 +1,8 @@
 import {
-  EdgeTarget,
   EdgeAttributes,
-  IAttributes,
+  EdgeTarget,
   EdgeTargets,
+  IAttributes,
 } from "../types.ts";
 import { DotObject } from "./abstract.ts";
 import { attribute } from "../attribute.ts";
