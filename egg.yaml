@@ -5,6 +5,7 @@ version: 0.3.0
 entry: ./mod.ts
 repository: https://github.com/ts-graphviz/deno
 files:
+  - ./render_dot.ts
   - ./usecase.ts
   - ./render/to_dot.ts
   - ./render/utils.ts
