@@ -10,19 +10,26 @@
 
 [Graphviz](https://graphviz.gitlab.io/) library for Deno🦕
 
-> Runtime independent APIs and specifications are compatible with the [ts-graphviz](https://github.com/ts-graphviz/ts-graphviz) package.
+> Runtime independent APIs and specifications are compatible with the
+> [ts-graphviz](https://github.com/ts-graphviz/ts-graphviz) package.
 
 ## Usages
 
 ### Callback style
 
-`renderDot` function outputs the dot command execution result to the specified path by supplying diagram object.
+`renderDot` function outputs the dot command execution result to the specified
+path by supplying diagram object.
 
-> `renderDot` function requires `allow-write`, `allow-run` permission, and [dot](https://graphviz.gitlab.io/) command.
+> `renderDot` function requires `allow-write`, `allow-run` permission, and
+> [dot](https://graphviz.gitlab.io/) command.
 
 ```typescript
 import * as path from "https://deno.land/std@0.67.0/path/mod.ts";
-import { digraph, attribute, renderDot } from "https://deno.land/x/graphviz/mod.ts";
+import {
+  attribute,
+  digraph,
+  renderDot,
+} from "https://deno.land/x/graphviz/mod.ts";
 
 const G = digraph("G", (g) => {
   const a = g.node("aa");

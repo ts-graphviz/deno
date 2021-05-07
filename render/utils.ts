@@ -11,7 +11,7 @@ import {
 } from "../types.ts";
 import { Subgraph } from "../model/clusters.ts";
 import { Edge } from "../model/edges.ts";
-import { ForwardRefNode, Node, NodeWithPort } from "../model/nodes.ts";
+import { isForwardRefNode, Node } from "../model/nodes.ts";
 import { Digraph, Graph, RootCluster } from "../model/root_clusters.ts";
 import { Attributes } from "../model/attributes_base.ts";
 export function escape(str: string): string {
@@ -77,12 +77,6 @@ export function isEdge(object: unknown): object is IEdge {
 }
 export function isNode(object: unknown): object is INode {
   return object instanceof Node;
-}
-export function isNodeWithPort(object: unknown): object is NodeWithPort {
-  return object instanceof NodeWithPort;
-}
-export function isForwardRefNode(object: unknown): object is ForwardRefNode {
-  return object instanceof ForwardRefNode;
 }
 export function isRootCluster(object: unknown): object is IRootCluster {
   return object instanceof RootCluster;
@@ -163,15 +157,9 @@ export function renderAttributes(attributes: IAttributes): string {
 export function renderEdgeTarget(edgeTarget: EdgeTarget): string | undefined {
   if (isNode(edgeTarget)) {
     return renderAttributeValue(edgeTarget.id);
-  } else if (isNodeWithPort(edgeTarget)) {
-    const { port, compass } = edgeTarget.port;
-    return concatWordsWithColon(
-      renderAttributeValue(edgeTarget.node.id),
-      port !== undefined ? renderAttributeValue(port) : undefined,
-      compass !== undefined ? renderAttributeValue(compass) : undefined,
-    );
   } else if (isForwardRefNode(edgeTarget)) {
-    const { port, compass } = edgeTarget.port;
+    const port = edgeTarget.port;
+    const compass = edgeTarget.compass;
     return concatWordsWithColon(
       renderAttributeValue(edgeTarget.id),
       port !== undefined ? renderAttributeValue(port) : undefined,

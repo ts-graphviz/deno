@@ -17,7 +17,6 @@ import {
 } from "../types.ts";
 import { Attributes, AttributesBase } from "./attributes_base.ts";
 import {
-  ForwardRefNode,
   isEdgeTarget,
   isEdgeTargetLike,
   isEdgeTargetsLike,
@@ -195,9 +194,9 @@ export abstract class Cluster<T extends string> extends AttributesBase<T>
       return n;
     }
     if (Compass.is(compass)) {
-      return new ForwardRefNode(id, { port, compass });
+      return { id, port, compass };
     }
-    return new ForwardRefNode(id, { port });
+    return { id, port };
   }
   /** @hidden */
   private toEdgeTargets(targets: EdgeTargetsLike): EdgeTargets {

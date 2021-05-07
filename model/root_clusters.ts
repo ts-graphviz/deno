@@ -37,7 +37,7 @@ export abstract class RootCluster extends Cluster<attribute.RootCluster>
     this.strict =
       args.find((arg): arg is boolean => typeof arg === "boolean") ?? false;
     const attributes = args.find((arg): arg is RootClusterAttributes =>
-      typeof arg === "object"
+      typeof arg === "object" && arg !== null
     );
     if (attributes !== undefined) {
       this.apply(attributes);
