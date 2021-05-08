@@ -15,7 +15,7 @@
 
 ## Usages
 
-### Callback style
+### Draw diagrams
 
 `renderDot` function outputs the dot command execution result to the specified
 path by supplying diagram object.
@@ -58,50 +58,39 @@ await renderDot(G, path.resolve(__dirname, "./example.svg"), {
 });
 ```
 
-### Script Style
+### Parse DOT Language
 
-Convert the diagram object to dot format with toDot function.
+The `https://deno.land/x/graphviz/perser/mod.ts` provide `parse` function
+that parses a string written in dot language and convert it to a model.
+
+The return value is a Graph or Digraph that inherits from RootCluster.
 
 ```typescript
-import { digraph, toDot } from "https://deno.land/x/graphviz/mod.ts";
+import { parse } from "https://deno.land/x/graphviz/perser/mod.ts";
 
-const g = digraph("G");
-
-const subgraphA = g.createSubgraph("A");
-const nodeA1 = subgraphA.createNode("A_node1");
-const nodeA2 = subgraphA.createNode("A_node2");
-subgraphA.createEdge([nodeA1, nodeA2]);
-
-const subgraphB = g.createSubgraph("B");
-const nodeB1 = subgraphB.createNode("B_node1");
-const nodeB2 = subgraphB.createNode("B_node2");
-subgraphA.createEdge([nodeB1, nodeB2]);
-
-const node1 = g.createNode("node1");
-const node2 = g.createNode("node2");
-g.createEdge([node1, node2]);
-
-const dot = toDot(g);
-console.log(dot);
+const G = parse(`
+  digraph G {
+    a -> b;
+  }
+`);
 ```
 
-```dot
-digraph "G" {
-  "node1";
-  "node2";
-  subgraph "A" {
-    "A_node1";
-    "A_node2";
-    "A_node1" -> "A_node2";
-    "B_node1" -> "B_node2";
-  }
-  subgraph "B" {
-    "B_node1";
-    "B_node2";
-  }
-  "node1" -> "node2";
-}
+This is equivalent to the code below.
+
+```typescript
+import { digraph } from "https://deno.land/x/graphviz/mod.ts";
+
+const G = digraph("G", (g) => {
+  g.edge(["a", "b"]);
+});
 ```
+
+The `"https://deno.land/x/graphviz/mod.ts"` module also provides other features such as handling AST.
+
+> This module is a translation of [@ts-graphviz/parser](https://github.com/ts-graphviz/parser)
+> to work with the Deno runtime.
+>
+> Please refer to the repository for details of the provided API.
 
 ## License
 

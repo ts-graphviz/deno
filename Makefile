@@ -14,6 +14,11 @@ fetch_latest:
 	@deno fmt
 	@deno fmt
 
+fetch_parser:
+	@deno run  --unstable --allow-run --allow-read --allow-write scripts/fetch_parser.ts
+	@deno fmt
+	@deno fmt
+
 examples:
 	@deno run --unstable --allow-run --allow-read --allow-write examples/callback.ts
 	@deno run --unstable --allow-run --allow-read --allow-write examples/callback.ts
