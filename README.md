@@ -60,8 +60,8 @@ await renderDot(G, path.resolve(__dirname, "./example.svg"), {
 
 ### Parse DOT Language
 
-The `https://deno.land/x/graphviz/perser/mod.ts` provide `parse` function
-that parses a string written in dot language and convert it to a model.
+The `https://deno.land/x/graphviz/perser/mod.ts` provide `parse` function that
+parses a string written in dot language and convert it to a model.
 
 The return value is a Graph or Digraph that inherits from RootCluster.
 
@@ -85,11 +85,13 @@ const G = digraph("G", (g) => {
 });
 ```
 
-The `"https://deno.land/x/graphviz/mod.ts"` module also provides other features such as handling AST.
+The `"https://deno.land/x/graphviz/mod.ts"` module also provides other features
+such as handling AST.
 
-> This module is a translation of [@ts-graphviz/parser](https://github.com/ts-graphviz/parser)
-> to work with the Deno runtime.
->
+> This module is a translation of
+> [@ts-graphviz/parser](https://github.com/ts-graphviz/parser) to work with the
+> Deno runtime.
+
 > Please refer to the repository for details of the provided API.
 
 ## License
