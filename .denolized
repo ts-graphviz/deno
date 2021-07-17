@@ -4,6 +4,7 @@ render/utils.ts
 render/renderer.ts
 types.ts
 model/nodes.ts
+model/utils.ts
 model/edges.ts
 model/root_clusters.ts
 model/clusters.ts
