@@ -2,12 +2,9 @@
 import { attribute } from "../attribute.ts";
 import {
   ClusterSubgraphAttributes,
-  Compass,
   EdgeAttributes,
-  EdgeTarget,
-  EdgeTargetLike,
-  EdgeTargets,
-  EdgeTargetsLike,
+  EdgeTargetLikeTuple,
+  EdgeTargetTuple,
   ICluster,
   IClusterCommonAttributes,
   IEdge,
@@ -16,13 +13,9 @@ import {
   NodeAttributes,
 } from "../types.ts";
 import { Attributes, AttributesBase } from "./attributes_base.ts";
-import {
-  isEdgeTarget,
-  isEdgeTargetLike,
-  isEdgeTargetsLike,
-  Node,
-} from "./nodes.ts";
+import { Node } from "./nodes.ts";
 import { Edge } from "./edges.ts";
+import { isNodeRefGroupLike, toNodeRef, toNodeRefGroup } from "./utils.ts";
 /**
  * Base class for clusters.
  * @hidden
@@ -165,48 +158,18 @@ export abstract class Cluster<T extends string> extends AttributesBase<T>
   }
   /** Create Edge and add it to the cluster. */
   public createEdge(
-    targets: (EdgeTargetLike | EdgeTargetsLike)[],
+    targets: EdgeTargetLikeTuple,
     attributes?: EdgeAttributes,
   ): IEdge {
-    const edge = new Edge(
-      targets.map((
-        t,
-      ) => (isEdgeTargetsLike(t)
-        ? this.toEdgeTargets(t)
-        : this.toEdgeTarget(t))
-      ),
-      attributes,
-    );
+    const ts = targets.map((
+      t,
+    ) => (isNodeRefGroupLike(t)
+      ? toNodeRefGroup(t)
+      : toNodeRef(t))
+    ) as EdgeTargetTuple;
+    const edge = new Edge(ts, attributes);
     this.objects.edges.add(edge);
     return edge;
-  }
-  /** @hidden */
-  private toEdgeTarget(target: EdgeTargetLike): EdgeTarget {
-    if (isEdgeTarget(target)) {
-      return target;
-    }
-    const [id, port, compass] = target.split(":");
-    const n = this.getNode(id);
-    if (n !== undefined) {
-      if (port && (compass === undefined || Compass.is(compass))) {
-        return n.port({ port, compass });
-      }
-      return n;
-    }
-    if (Compass.is(compass)) {
-      return { id, port, compass };
-    }
-    return { id, port };
-  }
-  /** @hidden */
-  private toEdgeTargets(targets: EdgeTargetsLike): EdgeTargets {
-    if (
-      targets.length < 2 &&
-      (isEdgeTargetLike(targets[0]) && isEdgeTargetLike(targets[1])) === false
-    ) {
-      throw Error("EdgeTargets must have at least 2 elements.");
-    }
-    return targets.map((t) => this.toEdgeTarget(t));
   }
   /**
      * Create a subgraph by specifying its id (or get it if it already exists).
@@ -450,7 +413,7 @@ export abstract class Cluster<T extends string> extends AttributesBase<T>
      * @param callback Callbacks for manipulating created or retrieved edge.
      */
   public edge(
-    targets: EdgeTargetLike[],
+    targets: EdgeTargetLikeTuple,
     callback?: (edge: IEdge) => void,
   ): IEdge;
   /**
@@ -481,7 +444,7 @@ export abstract class Cluster<T extends string> extends AttributesBase<T>
      * @param callback Callbacks for manipulating created or retrieved edge.
      */
   public edge(
-    targets: EdgeTargetLike[],
+    targets: EdgeTargetLikeTuple,
     attributes: EdgeAttributes,
     callback?: (edge: IEdge) => void,
   ): IEdge;
@@ -510,11 +473,11 @@ export abstract class Cluster<T extends string> extends AttributesBase<T>
      */
   public edge(attributes: EdgeAttributes): void;
   public edge(
-    firstArg: EdgeTargetLike[] | EdgeAttributes,
+    firstArg: EdgeTargetLikeTuple | EdgeAttributes,
     ...args: unknown[]
   ): IEdge | void {
     if (Array.isArray(firstArg)) {
-      const targets = [...firstArg];
+      const targets = firstArg;
       const attributes = args.find((arg: unknown): arg is EdgeAttributes =>
         typeof arg === "object"
       );
@@ -574,7 +537,7 @@ export class Subgraph
     super();
     this.id = args.find((arg): arg is string => typeof arg === "string");
     const attributes = args.find((arg): arg is ClusterSubgraphAttributes =>
-      typeof arg === "object"
+      typeof arg === "object" && arg !== null
     );
     if (attributes !== undefined) {
       this.apply(attributes);

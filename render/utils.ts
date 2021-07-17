@@ -1,19 +1,20 @@
 import {
   AttributesValue,
-  EdgeTarget,
-  EdgeTargets,
   IAttributes,
   ICluster,
   IEdge,
   INode,
   IRootCluster,
   ISubgraph,
+  NodeRef,
+  NodeRefGroup,
 } from "../types.ts";
 import { Subgraph } from "../model/clusters.ts";
 import { Edge } from "../model/edges.ts";
-import { isForwardRefNode, Node } from "../model/nodes.ts";
+import { Node } from "../model/nodes.ts";
 import { Digraph, Graph, RootCluster } from "../model/root_clusters.ts";
 import { Attributes } from "../model/attributes_base.ts";
+import { isForwardRefNode } from "../model/utils.ts";
 export function escape(str: string): string {
   return str.replace(/\n/g, "\\n").replace(/"/g, '\\"');
 }
@@ -154,21 +155,18 @@ export function renderAttributes(attributes: IAttributes): string {
     "]",
   );
 }
-export function renderEdgeTarget(edgeTarget: EdgeTarget): string | undefined {
-  if (isNode(edgeTarget)) {
-    return renderAttributeValue(edgeTarget.id);
-  } else if (isForwardRefNode(edgeTarget)) {
-    const port = edgeTarget.port;
-    const compass = edgeTarget.compass;
+export function renderNodeRef(node: NodeRef): string | undefined {
+  if (isNode(node)) {
+    return renderAttributeValue(node.id);
+  } else if (isForwardRefNode(node)) {
+    const { id, port, compass } = node;
     return concatWordsWithColon(
-      renderAttributeValue(edgeTarget.id),
+      renderAttributeValue(id),
       port !== undefined ? renderAttributeValue(port) : undefined,
       compass !== undefined ? renderAttributeValue(compass) : undefined,
     );
   }
 }
-export function renderEdgeTargets(
-  edgeTargets: EdgeTargets,
-): string | undefined {
-  return "{" + concatWordsWithSpace(...edgeTargets.map(renderEdgeTarget)) + "}";
+export function renderNodeRefGroup(group: NodeRefGroup): string | undefined {
+  return "{" + concatWordsWithSpace(...group.map(renderNodeRef)) + "}";
 }

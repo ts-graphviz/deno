@@ -6,8 +6,8 @@ import {
   IRootCluster,
   ISubgraph,
 } from "../types.ts";
-import { isEdgeTargetLike } from "../model/nodes.ts";
-import { renderEdgeTargets } from "./utils.ts";
+import { isNodeRef } from "../model/utils.ts";
+import { renderNodeRefGroup } from "./utils.ts";
 import {
   commentOutIfExist,
   concatWordsWithSpace,
@@ -25,14 +25,14 @@ import {
   renderAttributeValue,
   renderAttributeWithSemi,
   renderClusterType,
-  renderEdgeTarget,
+  renderNodeRef,
   spaceLeftPad,
 } from "./utils.ts";
 export class Renderer {
   private root?: IRootCluster;
   protected renderNode(node: INode): string {
     const comment = commentOutIfExist(node.comment);
-    const target = renderEdgeTarget(node);
+    const target = renderNodeRef(node);
     const attrs = node.attributes.size > 0
       ? spaceLeftPad(renderAttributes(node.attributes))
       : undefined;
@@ -45,7 +45,7 @@ export class Renderer {
       isGraph(this.root) ? " -- " : " -> ",
       edge.targets.map((
         t,
-      ) => (isEdgeTargetLike(t) ? renderEdgeTarget(t) : renderEdgeTargets(t))),
+      ) => (isNodeRef(t) ? renderNodeRef(t) : renderNodeRefGroup(t))),
     );
     const attrs = edge.attributes.size > 0
       ? spaceLeftPad(renderAttributes(edge.attributes))
