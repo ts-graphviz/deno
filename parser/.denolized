@@ -1,5 +1,6 @@
-usecase.ts
+dot.ts
+parse.ts
 ast.ts
+dot_peggy.ts
 convert.ts
-dot_pegjs.ts
 mod.ts

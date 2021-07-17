@@ -1,3 +1,4 @@
-export { SyntaxError } from "./dot_pegjs.ts";
+export { SyntaxError } from "./dot_peggy.ts";
 export { AST } from "./ast.ts";
-export { dot, parse } from "./usecase.ts";
+export { parse } from "./parse.ts";
+export { dot } from "./dot.ts";
