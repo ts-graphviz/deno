@@ -1,3 +1,7 @@
+---
+# This project has been merged into [ts-graphviz](https://github.com/ts-graphviz/ts-graphviz).
+---
+
 [![tag](https://img.shields.io/github/tag/ts-graphviz/deno.svg)](https://github.com/ts-graphviz/deno)
 ![deno-ci](https://github.com/ts-graphviz/deno/workflows/deno-ci/badge.svg)
 [![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/graphviz/mod.ts)
